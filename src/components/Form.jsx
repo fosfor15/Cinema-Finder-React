@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/Form.css';
 
 function Form(props) {
     const { title, handleTitleChange, type, handleTypeChange, handleSearchClick } = props;
+
+    const handlePressEnter = event => {
+        if (event.key == 'Enter') {
+            handleSearchClick();
+        }
+    };
 
     return (
         <div id="form">
@@ -15,6 +21,7 @@ function Form(props) {
                     title="Enter title without repeating. Title starts with letters and digits."
                     value={ title }
                     onChange={ handleTitleChange }
+                    onKeyDown={ handlePressEnter }
                 />
             </div>
 

@@ -1,10 +1,20 @@
 import React from 'react';
-import '../styles/CinemaCardList.css';
+import CinemaCard from './CinemaCard';
+import '../styles/CinemaCards.css';
 
 function CinemaCardList(props) {
+    const { cinemaData } = props;
+
     return (
-        <div id="cinema-card-list">
-            <h3>{ props.status }</h3>
+        <div id="cinema-card-list">            
+            { cinemaData.map(cinema => {
+                return (
+                    <CinemaCard
+                        key={ cinema.kinopoiskId }
+                        cinema={ cinema }
+                    />
+                );
+            }) }
         </div>
     );
 }
