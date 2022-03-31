@@ -1,0 +1,30 @@
+
+#form {    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 320px;
+    height: 150px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 6px;
+    background-color: rgb(255, 255, 221);
+    box-shadow: 2px 2px 10px -10px black;
+}
+
+.control-container {
+    display: flex;
+    justify-content: space-between;
+}
+.control-container input,
+.control-container select {
+    width: 70%;
+}
+
+#search-button {
+    padding: 2px 0;
+    border: 1px solid rgb(2, 30, 104);
+    border-radius: 4px;
+    cursor: pointer;
+}
