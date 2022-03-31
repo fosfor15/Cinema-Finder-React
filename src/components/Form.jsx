@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Form.css';
 
 function Form(props) {
-    const { title, handleTitleChange, type, handleTypeChange } = props;
+    const { title, handleTitleChange, type, handleTypeChange, handleSearchClick } = props;
 
     return (
         <div id="form">
@@ -31,7 +31,10 @@ function Form(props) {
                 </select>
             </div>
 
-            <button id="search-button">Search</button>
+            <button
+                id="search-button"
+                onClick={ handleSearchClick }
+            >Search</button>
         </div>
     );
 }
