@@ -3,6 +3,7 @@ import axios from 'axios';
 import Form from './components/Form';
 import Status from './components/Status';
 import CinemaCardList from './components/CinemaCardList';
+import Pagination from './components/Pagination';
 import './styles/App.css';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
         previous: 'film'
     });
 
+    const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
+    const [ totalPages, setTotalPages ] = useState(0);
+
     const handleTitleChange = event => {
         setTitle({ ...title , current: event.target.value });
     };
@@ -26,7 +30,25 @@ function App() {
     const [ status, setStatus ] = useState('');
     const [ cinemaData, setCinemaData ] = useState([]);
 
-    const fetchCinemaData = async () => {
+    const fetchCinemaData = async (pageNumber) => {
+        const config = {
+            method: 'get',
+            url: '/films',
+            baseURL: 'https://kinopoiskapiunofficial.tech/api/v2.2',
+            params: {
+                keyword: title.current,
+                type: type.current,
+                page: pageNumber
+            },
+            headers: {
+                'X-API-KEY': 'babd72f9-9560-4373-a5c3-9e8caae771fc'
+            }
+        };
+
+        return await axios(config);
+    };
+
+    const processInitialRequest = async () => {
         if (!title.current) {
             setStatus('Empty title\nPlease enter title');
             return;
@@ -44,21 +66,7 @@ function App() {
             return;
         }
 
-        const config = {
-            method: 'get',
-            url: '/films',
-            baseURL: 'https://kinopoiskapiunofficial.tech/api/v2.2',
-            params: {
-                keyword: title.current,
-                type: type.current,
-                page: 1
-            },
-            headers: {
-                'X-API-KEY': 'babd72f9-9560-4373-a5c3-9e8caae771fc'
-            }
-        };
-
-        const response = await axios(config);
+        const response = await fetchCinemaData(currentPageNumber);
 
         if (response.status == 200) {
             const typeOutput = (type.current == 'film') ? 'Film' :
@@ -68,9 +76,16 @@ function App() {
 
             setTitle({ previous: title.current, current: '' });
             setType({ ...type , previous: type.current });
-        }
+            setTotalPages(response.data.totalPages);
+            setCinemaData(response.data.items);
+        }        
+    };
 
-        setCinemaData([ ...cinemaData, ...response.data.items ]);
+    const processRequestByPage = async (pageNumber) => {
+        setCinemaData([]);
+        setCurrentPageNumber(pageNumber);
+        const response = await fetchCinemaData(pageNumber);
+        setCinemaData(response.data.items);
     };
 
     return (
@@ -81,11 +96,16 @@ function App() {
                 handleTitleChange={ handleTitleChange }
                 type={ type }
                 handleTypeChange={ handleTypeChange }
-                handleSearchClick={ fetchCinemaData }
+                handleSearchClick={ processInitialRequest }
             />
             <Status status={ status } />
             <CinemaCardList
                 cinemaData={ cinemaData }
+            />
+            <Pagination
+                currentPage={ currentPageNumber }
+                processRequestByPage={ processRequestByPage }
+                totalPages={ totalPages }
             />
         </div>
     );
