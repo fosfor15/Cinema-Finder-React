@@ -6,28 +6,51 @@ import CinemaCardList from './components/CinemaCardList';
 import './styles/App.css';
 
 function App() {
-    const [ title, setTitle ] = useState('');
-    const [ type, setType ] = useState('film');
+    const [ title, setTitle ] = useState({ 
+        current: '',
+        previous: ''
+    });
+    const [ type, setType ] = useState({ 
+        current: 'film',
+        previous: 'film'
+    });
 
     const handleTitleChange = event => {
-        setTitle( event.target.value );
+        setTitle({ ...title , current: event.target.value });
     };
     
     const handleTypeChange = event => {
-        setType( event.target.value );
+        setType({ ...type , current: event.target.value });
     };
 
     const [ status, setStatus ] = useState('');
     const [ cinemaData, setCinemaData ] = useState([]);
 
     const fetchCinemaData = async () => {
+        if (!title.current) {
+            setStatus('Empty title\nPlease enter title');
+            return;
+        }
+
+        if (title.current == title.previous &&
+                type.current == type.previous) {
+            setStatus('Repeated title and type\nPlease enter new ones');
+            return;
+        }
+
+        const regexp = /^[a-zа-я0-9][a-zа-я0-9 ,.!?&\\/-:']{2,}$/i;
+        if (!regexp.test(title.current)) {
+            setStatus('Mistake in title\nTitle starts with letters, digits, please enter valid one');
+            return;
+        }
+
         const config = {
             method: 'get',
             url: '/films',
             baseURL: 'https://kinopoiskapiunofficial.tech/api/v2.2',
             params: {
-                keyword: title,
-                type,
+                keyword: title.current,
+                type: type.current,
                 page: 1
             },
             headers: {
@@ -38,12 +61,16 @@ function App() {
         const response = await axios(config);
 
         if (response.status == 200) {
-            const statusOutput = `Search for ${type}\n"${title}"`;
+            const typeOutput = (type.current == 'film') ? 'Film' :
+                (type.current == 'tv_show') ? 'TV Show' : 'All';
+            const statusOutput = `Search for ${typeOutput}\n"${title.current}"`;
             setStatus(statusOutput);
+
+            setTitle({ previous: title.current, current: '' });
+            setType({ ...type , previous: type.current });
         }
 
         setCinemaData([ ...cinemaData, ...response.data.items ]);
-        setTitle('');
     };
 
     return (

@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/Form.css';
 
 function Form(props) {
-    const { title, handleTitleChange, type, handleTypeChange, handleSearchClick } = props;
+    const { title, handleTitleChange, type, handleTypeChange,
+        handleSearchClick } = props;
 
     const handlePressEnter = event => {
         if (event.key == 'Enter') {
@@ -19,7 +20,7 @@ function Form(props) {
                     id="title-input"
                     placeholder="Enter title"
                     title="Enter title without repeating. Title starts with letters and digits."
-                    value={ title }
+                    value={ title.current }
                     onChange={ handleTitleChange }
                     onKeyDown={ handlePressEnter }
                 />
@@ -29,7 +30,7 @@ function Form(props) {
                 <label htmlFor="type-select">Type:</label>
                 <select
                     id="type-select"
-                    value={ type }
+                    value={ type.current }
                     onChange={ handleTypeChange }
                 >
                     <option value="film">Films</option>

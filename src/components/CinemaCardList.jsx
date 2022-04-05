@@ -7,10 +7,10 @@ function CinemaCardList(props) {
 
     return (
         <div id="cinema-card-list">            
-            { cinemaData.map(cinema => {
+            { cinemaData.map((cinema, ind) => {
                 return (
                     <CinemaCard
-                        key={ cinema.kinopoiskId }
+                        key={ ind }
                         cinema={ cinema }
                     />
                 );
