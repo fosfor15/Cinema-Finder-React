@@ -1,21 +1,21 @@
 import React from 'react';
 import '../styles/Pagination.css';
 
-function Pagination({ currentPage, processRequestByPage, totalPages }) {
+function Pagination({ currentPageNumber, processRequestByPage, totalPages }) {
     const pagesNumbers = new Array(totalPages).fill(0)
         .map((item, ind) => ++ind);
 
     const handleLeftArrowClick = () => {
-        if (currentPage == 1) {
+        if (currentPageNumber == 1) {
             return;
         }
-        processRequestByPage(currentPage - 1);
+        processRequestByPage(currentPageNumber - 1);
     };
     const handleRightArrowClick = () => {
-        if (currentPage == pagesNumbers.length) {
+        if (currentPageNumber == pagesNumbers.length) {
             return;
         }
-        processRequestByPage(currentPage + 1);
+        processRequestByPage(currentPageNumber + 1);
     };
 
     return (
@@ -28,7 +28,7 @@ function Pagination({ currentPage, processRequestByPage, totalPages }) {
             
             { pagesNumbers.map(pageNumber => 
                 <button
-                    className={ pageNumber == currentPage ? 'page-number active' : 'page-number' }
+                    className={ pageNumber == currentPageNumber ? 'page-number active' : 'page-number' }
                     key={ pageNumber }
                     onClick={ () => processRequestByPage(pageNumber) }
                 >

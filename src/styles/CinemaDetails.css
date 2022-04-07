@@ -1,0 +1,79 @@
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: none;
+}
+
+.modal-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cinema-details {
+    position: relative;
+    display: flex;
+    width: 800px;
+    height: 500px;
+    padding: 20px;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 8px;
+    background-color: rgb(236, 236, 161);
+    box-shadow: 3px 3px 10px -8px black;
+}
+
+#cinema-details .rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cinema-details .poster {
+    display: flex;
+    align-items: center;
+}
+#cinema-details img {
+    height: 100%;
+}
+
+#cinema-details .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 26px;
+    margin-right: 10px;
+}
+
+#cinema-details .info > * {
+    margin: 5px 0;
+    text-align: left;
+}
+
+#cinema-details .description {
+    max-height: 250px;
+    padding-right: 8px;
+    overflow: auto;
+    text-align: justify;
+}
+
+#cinema-details .link {
+    text-align: right;
+    text-decoration: none;
+}
+#cinema-details .link:hover {
+    text-decoration: underline;
+}
+
+#cinema-details .close-cinema-details {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 26px;
+    cursor: pointer;
+}

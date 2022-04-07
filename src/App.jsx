@@ -16,9 +16,6 @@ function App() {
         previous: 'film'
     });
 
-    const [ currentPageNumber, setCurrentPageNumber ] = useState(1);
-    const [ totalPages, setTotalPages ] = useState(0);
-
     const handleTitleChange = event => {
         setTitle({ ...title , current: event.target.value });
     };
@@ -29,6 +26,9 @@ function App() {
 
     const [ status, setStatus ] = useState('');
     const [ cinemaData, setCinemaData ] = useState([]);
+    
+    const [ currentPageNumber, setCurrentPageNumber ] = useState(0);
+    const [ totalPages, setTotalPages ] = useState(0);
 
     const fetchCinemaData = async (pageNumber) => {
         const config = {
@@ -57,6 +57,7 @@ function App() {
         if (title.current == title.previous &&
                 type.current == type.previous) {
             setStatus('Repeated title and type\nPlease enter new ones');
+            setTitle({ ...title, current: '' });
             return;
         }
 
@@ -66,7 +67,12 @@ function App() {
             return;
         }
 
-        const response = await fetchCinemaData(currentPageNumber);
+        setStatus('');
+        setCinemaData([]);
+        setCurrentPageNumber(1);
+        setTotalPages(0);
+
+        const response = await fetchCinemaData(1);
 
         if (response.status == 200) {
             const typeOutput = (type.current == 'film') ? 'Film' :
@@ -76,14 +82,17 @@ function App() {
 
             setTitle({ previous: title.current, current: '' });
             setType({ ...type , previous: type.current });
-            setTotalPages(response.data.totalPages);
             setCinemaData(response.data.items);
-        }        
+            setTotalPages(response.data.totalPages);
+        } else {
+            setStatus(`Request is ${response.status}:\n${response.statusText}`);
+        }
     };
 
     const processRequestByPage = async (pageNumber) => {
         setCinemaData([]);
         setCurrentPageNumber(pageNumber);
+
         const response = await fetchCinemaData(pageNumber);
         setCinemaData(response.data.items);
     };
@@ -98,15 +107,18 @@ function App() {
                 handleTypeChange={ handleTypeChange }
                 handleSearchClick={ processInitialRequest }
             />
-            <Status status={ status } />
+            <Status
+                status={ status }
+                currentPageNumber={ currentPageNumber }                
+            />
             <CinemaCardList
                 cinemaData={ cinemaData }
             />
             <Pagination
-                currentPage={ currentPageNumber }
+                currentPageNumber={ currentPageNumber }
                 processRequestByPage={ processRequestByPage }
                 totalPages={ totalPages }
-            />
+            />            
         </div>
     );
 }

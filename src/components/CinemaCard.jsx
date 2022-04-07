@@ -1,12 +1,20 @@
 import React from 'react';
 import '../styles/CinemaCards.css';
 
-function CinemaCard(props) {
-    const { posterUrlPreview: poster, nameOriginal: title,
-        ratingKinopoisk: rating, year } = props.cinema;
+function CinemaCard({ cinema, openCinemaDetails }) {
+    const {
+        posterUrlPreview: poster,
+        nameRu: title,
+        ratingKinopoisk: rating,
+        year,
+        kinopoiskId: cinemaId,        
+    } = cinema;
 
     return (
-        <div className="cinema-card">
+        <div
+            className="cinema-card"
+            onClick={ () => openCinemaDetails(cinemaId) }
+        >
             <div className="poster">
                 <img
                     src={ poster }

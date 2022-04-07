@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CinemaCard from './CinemaCard';
+import CinemaDetails from './CinemaDetails';
 import '../styles/CinemaCards.css';
 
-function CinemaCardList(props) {
-    const { cinemaData } = props;
+function CinemaCardList({ cinemaData }) {
+    const [ modalActive, setModalActive ] = useState(false);
+    const [ cinemaId, setCinemaId ] = useState(0);    
+
+    const openCinemaDetails = (cinemaId) => {
+        setModalActive(true);
+        setCinemaId(cinemaId);
+    };
 
     if (cinemaData.length) {
         return (
             <div id="cinema-card-list">
-                { cinemaData.map((cinema, ind) => {
-                    return (
-                        <CinemaCard
-                            key={ ind }
-                            cinema={ cinema }
-                        />
-                    );
-                }) }
+                { cinemaData.map((cinema, ind) => 
+                    <CinemaCard
+                        key={ ind }
+                        cinema={ cinema }
+                        openCinemaDetails={ openCinemaDetails }
+                    />) }
+                { cinemaId
+                    ? <CinemaDetails
+                        modalActive={ modalActive }
+                        setModalActive={ setModalActive }
+                        cinemaId={ cinemaId }
+                    />
+                    : null }                
             </div>
         );
     } else {

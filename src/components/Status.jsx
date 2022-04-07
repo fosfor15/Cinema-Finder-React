@@ -1,11 +1,13 @@
 import React from 'react';
 
-function Status({ status }) {
+function Status({ status, currentPageNumber }) {
     return (
-        <h3
-            id="status"
-            style={{ whiteSpace: 'pre-wrap' }}
-        >{ status }</h3>
+        <div id="status">
+            <h3 style={{ whiteSpace: 'pre-wrap' }}>{ status }</h3>
+            { currentPageNumber
+                ? <h4>Page { currentPageNumber }</h4>
+                : null }
+        </div>
     );
 }
 
