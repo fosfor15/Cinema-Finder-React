@@ -21,7 +21,6 @@ function CinemaDetails({ modalActive, setModalActive, cinemaId }) {
     useEffect(async () => {
         const response = await fetchCinemaDetails(cinemaId);
         setCinemaDetails(response.data);
-        console.log(cinemaId);
     }, [ cinemaId ]);
 
     const {

@@ -12,27 +12,23 @@ function CinemaCardList({ cinemaData }) {
         setCinemaId(cinemaId);
     };
 
-    if (cinemaData.length) {
-        return (
-            <div id="cinema-card-list">
-                { cinemaData.map((cinema, ind) => 
-                    <CinemaCard
-                        key={ ind }
-                        cinema={ cinema }
-                        openCinemaDetails={ openCinemaDetails }
-                    />) }
-                { cinemaId
-                    ? <CinemaDetails
-                        modalActive={ modalActive }
-                        setModalActive={ setModalActive }
-                        cinemaId={ cinemaId }
-                    />
-                    : null }                
-            </div>
-        );
-    } else {
-        return <h3>Loading...</h3>;
-    }
+    return (
+        <div id="cinema-card-list">
+            { cinemaData.map((cinema, ind) => 
+                <CinemaCard
+                    key={ ind }
+                    cinema={ cinema }
+                    openCinemaDetails={ openCinemaDetails }
+                />) }
+            { cinemaId
+                ? <CinemaDetails
+                    modalActive={ modalActive }
+                    setModalActive={ setModalActive }
+                    cinemaId={ cinemaId }
+                />
+                : null }                
+        </div>
+    );
 }
 
 export default CinemaCardList;

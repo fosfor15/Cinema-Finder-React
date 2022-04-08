@@ -67,7 +67,7 @@ function App() {
             return;
         }
 
-        setStatus('');
+        setStatus('Loading...');
         setCinemaData([]);
         setCurrentPageNumber(1);
         setTotalPages(0);
@@ -90,11 +90,17 @@ function App() {
     };
 
     const processRequestByPage = async (pageNumber) => {
+        let _status = status + '\nLoading...';
+        setStatus(_status);
+
         setCinemaData([]);
         setCurrentPageNumber(pageNumber);
 
         const response = await fetchCinemaData(pageNumber);
         setCinemaData(response.data.items);
+
+        _status = _status.match(/.+?(?=\nLoading\.{3})/s)[0];
+        setStatus(_status);
     };
 
     return (
@@ -109,7 +115,8 @@ function App() {
             />
             <Status
                 status={ status }
-                currentPageNumber={ currentPageNumber }                
+                currentPageNumber={ currentPageNumber }
+                isCinemaData={ !!cinemaData.length }
             />
             <CinemaCardList
                 cinemaData={ cinemaData }
