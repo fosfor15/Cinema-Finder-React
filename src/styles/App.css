@@ -1,4 +1,26 @@
 
-.App {
+#App {
     text-align: center;
+}
+
+nav {
+    position: relative;
+}
+
+#search-link {
+    margin: 0;
+    text-decoration: none;
+    transition: .3s;
+}
+#search-link:hover {
+    color: rgb(40, 189, 139);
+}
+
+#favorite-icon {
+    position: absolute;
+    top: -60px;
+    right: 30px;
+}
+#favorite-icon img {
+    width: 40px;
 }

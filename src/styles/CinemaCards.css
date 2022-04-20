@@ -51,7 +51,7 @@
     transition: .2s;
 }
 
-.cinema-card .active {
+.cinema-card .favorite-icon-active {
     background-image: url('../icons/favorite-active.png');
 }
 
