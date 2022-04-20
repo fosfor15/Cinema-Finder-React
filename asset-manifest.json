@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Cinema-Finder-React/static/css/main.861de738.css",
-    "main.js": "/Cinema-Finder-React/static/js/main.23618d3b.js",
+    "main.js": "/Cinema-Finder-React/static/js/main.e0bf59e8.js",
     "index.html": "/Cinema-Finder-React/index.html",
     "main.861de738.css.map": "/Cinema-Finder-React/static/css/main.861de738.css.map",
-    "main.23618d3b.js.map": "/Cinema-Finder-React/static/js/main.23618d3b.js.map"
+    "main.e0bf59e8.js.map": "/Cinema-Finder-React/static/js/main.e0bf59e8.js.map"
   },
   "entrypoints": [
     "static/css/main.861de738.css",
-    "static/js/main.23618d3b.js"
+    "static/js/main.e0bf59e8.js"
   ]
 }
