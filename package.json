@@ -2,10 +2,11 @@
     "name": "cinema-finder",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://fosfor15.github.io/cinema-finder-react/",
+    "homepage": "https://fosfor15.github.io/cinema-finder-react",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "predeploy": "npm run build",
         "deploy": "gh-pages -d build"
     },
     "dependencies": {
