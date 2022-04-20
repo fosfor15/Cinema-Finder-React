@@ -15,14 +15,14 @@ function App() {
             <Router>
                 <nav>
                     <Link
-                        to="/"
+                        to="/cinema-finder-react/"
                         className="link"
                         id="search-link"
                     >
                         <h4>Let's find some new cinema</h4>
                     </Link>
                     <Link
-                        to="/favorites"
+                        to="/cinema-finder-react/favorites"
                         id="favorite-icon"
                     >
                         <img
@@ -34,11 +34,11 @@ function App() {
                 <Switch>
                     <Route
                         exact
-                        path="/"
+                        path="/cinema-finder-react/"
                         component={ Main }
                     />
                     <Route
-                        path="/favorites"
+                        path="/cinema-finder-react/favorites"
                         component={ Favorites }
                     />
                 </Switch>
